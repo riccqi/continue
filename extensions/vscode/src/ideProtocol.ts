@@ -284,6 +284,10 @@ class VsCodeIde implements IDE {
     return await this.ideUtils.getDiff();
   }
 
+  async getDiffForCurBranch(): Promise<string> {
+    return await this.ideUtils.getDiffForCurBranch();
+  }
+
   async getTerminalContents(): Promise<string> {
     return await this.ideUtils.getTerminalContents(1);
   }

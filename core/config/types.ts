@@ -454,6 +454,7 @@ declare global {
   
   type ContextProviderName =
     | "diff"
+    | "diffb"
     | "github"
     | "terminal"
     | "locals"
