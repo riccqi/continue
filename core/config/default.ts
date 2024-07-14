@@ -117,6 +117,7 @@ export const defaultContextProvidersVsCode: ContextProviderWithParams[] = [
   { name: "docs", params: {} },
   { name: "diff", params: {} },
   { name: "diffb", params: {} },
+  { name: "difff", params: {} },
   { name: "terminal", params: {} },
   { name: "problems", params: {} },
   { name: "folder", params: {} },

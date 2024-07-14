@@ -639,19 +639,9 @@ export class VsCodeIdeUtils {
       }
 
       repos.push(repo.state.HEAD?.name);
-      console.log(`HEAD: ${repo.state.HEAD}`);
-      console.log(`HEAD: ${repo.state.HEAD?.type}`);
-      console.log(`HEAD: ${repo.state.HEAD?.name}`);
-      console.log(`HEAD: ${repo.state.HEAD?.commit}`);
-      console.log(`HEAD: ${repo.state.HEAD?.remote}`);
       const base = await repo.getBranchBase(repo.state.HEAD?.name || "");
-      console.log(`base: ${base}`);
-      console.log(`base: ${base?.name}`);
-      console.log(`base: ${base?.commit}`);
-      console.log(`base: ${base?.remote}`);
 
       const mrChanges = await repo.diffBetween(base?.name || "", repo.state.HEAD?.name || "");
-      console.log(`rootUri: ${repo.rootUri}`);
       
       let i = 0;
       for(const ch of mrChanges) {
@@ -663,7 +653,56 @@ export class VsCodeIdeUtils {
         i++;
         console.log(`change ${i}: ${ch.uri} => ${curFile}`);
         const curDiff = await repo.diffBetween(base?.name || "", repo.state.HEAD?.name || "", curFile);
-        console.log(`curDiff: ${curDiff}`);
+        //console.log(`curDiff: ${curDiff}`);
+        diffs.push(`${curDiff}\n`);
+      }
+    }
+
+    const fullDiff = diffs.join("\n\n");
+    if (fullDiff.trim() === "") {
+      console.log(`Diff empty for repos: ${repos}`);
+    }
+    return fullDiff;
+  }
+
+  async getDiffForCurFile(): Promise<string> {
+    let diffs: string[] = [];
+    let repos = [];
+    let filesInEditor: string[] = [];
+
+    vscode.window.visibleTextEditors
+      .filter((editor) => this.documentIsCode(editor.document.uri))
+      .forEach((editor) => {
+        filesInEditor.push(editor.document.uri.toString());
+      });
+
+      console.log(`filesInEditor: ${filesInEditor}`);
+
+    for (const dir of this.getWorkspaceDirectories()) {
+      const repo = await this.getRepo(vscode.Uri.file(dir));
+      if (!repo) {
+        continue;
+      }
+
+      repos.push(repo.state.HEAD?.name);
+      const base = await repo.getBranchBase(repo.state.HEAD?.name || "");
+
+      const mrChanges = await repo.diffBetween(base?.name || "", repo.state.HEAD?.name || "");
+      
+      let i = 0;
+      for(const ch of mrChanges) {
+        let curFile = ch.uri.toString();
+        if(filesInEditor.indexOf(curFile) < 0) {
+          continue;
+        }
+        curFile = curFile.replace(repo.rootUri.toString(),"").replace(/^[\\/]/,"");
+        if (curFile === "go.mod" || curFile === "go.sum") {
+          continue;
+        }
+        i++;
+        console.log(`change ${i}: ${ch.uri} => ${curFile}`);
+        const curDiff = await repo.diffBetween(base?.name || "", repo.state.HEAD?.name || "", curFile);
+        //console.log(`curDiff: ${curDiff}`);
         diffs.push(`${curDiff}\n`);
       }
     }
