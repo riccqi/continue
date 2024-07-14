@@ -109,6 +109,10 @@ class FileSystemIde implements IDE {
     return Promise.resolve("");
   }
 
+  getDiffForCurBranch(): Promise<string> {
+    return Promise.resolve("");
+  }
+
   getTerminalContents(): Promise<string> {
     return Promise.resolve("");
   }

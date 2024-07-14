@@ -425,6 +425,7 @@ export interface IDE {
   getIdeInfo(): Promise<IdeInfo>;
   getIdeSettings(): Promise<IdeSettings>;
   getDiff(): Promise<string>;
+  getDiffForCurBranch(): Promise<string>;
   isTelemetryEnabled(): Promise<boolean>;
   getUniqueId(): Promise<string>;
   getTerminalContents(): Promise<string>;
@@ -519,6 +520,7 @@ type StepName =
 
 type ContextProviderName =
   | "diff"
+  | "diffb"
   | "github"
   | "terminal"
   | "locals"

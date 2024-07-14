@@ -47,6 +47,7 @@ export type ToIdeFromWebviewOrCoreProtocol = {
   showLines: [{ filepath: string; startLine: number; endLine: number }, void];
   readRangeInFile: [{ filepath: string; range: Range }, string];
   getDiff: [undefined, string];
+  getDiffForCurBranch: [undefined, string];
   getWorkspaceConfigs: [undefined, ContinueRcJson[]];
   getTerminalContents: [undefined, string];
   getDebugLocals: [{ threadIndex: number }, string];

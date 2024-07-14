@@ -112,6 +112,11 @@ export class MessageIde implements IDE {
     return await this.request("getDiff", undefined);
   }
 
+  async getDiffForCurBranch() {
+    return await this.request("getDiffForCurBranch", undefined);
+  }
+
+
   async getTerminalContents() {
     return await this.request("getTerminalContents", undefined);
   }
