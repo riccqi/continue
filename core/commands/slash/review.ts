@@ -4,7 +4,7 @@ import { stripImages } from "../../llm/countTokens.js";
 const prompt = `
      Review the following code, focusing on design issues, algorithm issues, error handling issues, null pointer issues, index overflow issues, concurrency issues, coding style issue, etc. Provide feedback with these guidelines:
 
-     Tone: Ensure the feedback is clear and focused on practical improvements. Give the feedback in Chinese。
+     Tone: Ensure the feedback is clear and focused on practical improvements.
      Orderly Analysis: Address the code sequentially, from top to bottom, to ensure a thorough review without skipping any parts.
      Descriptive Feedback: Avoid referencing line numbers directly, as they may vary. Instead, describe the code sections or specific constructs that need attention, explaining the reasons clearly.
      Provide Examples: For each issue identified, offer an example of how the code could be improved or rewritten for better clarity, performance, or maintainability.
