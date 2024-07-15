@@ -6,6 +6,7 @@ import CurrentFileContextProvider from "./CurrentFileContextProvider.js";
 import DatabaseContextProvider from "./DatabaseContextProvider.js";
 import DiffContextProvider from "./DiffContextProvider.js";
 import DiffBranchContextProvider from "./DiffBranchContextProvider.js";
+import DiffFileContextProvider from "./DiffFileContextProvider.js";
 import DocsContextProvider from "./DocsContextProvider.js";
 import FileTreeContextProvider from "./FileTreeContextProvider.js";
 import FolderContextProvider from "./FolderContextProvider.js";
@@ -33,6 +34,7 @@ import URLContextProvider from "./URLContextProvider.js";
 const Providers: (typeof BaseContextProvider)[] = [
   DiffContextProvider,
   DiffBranchContextProvider,
+  DiffFileContextProvider,
   FileTreeContextProvider,
   GitHubIssuesContextProvider,
   GoogleContextProvider,
